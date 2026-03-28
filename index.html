@@ -121,6 +121,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 48px;display:fl
 .dl-btn.purple{--btn-color:#7c3aed;}
 .dl-btn.pink{--btn-color:#be185d;}
 .dl-btn.teal{--btn-color:#0f766e;}
+.dl-btn.red{--btn-color:#dc2626;}
 
 /* ── GRID OF SMALL BTNS ── */
 .btn-grid{display:grid;gap:6px;margin-top:4px;}
@@ -184,6 +185,21 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
 .ctr-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--orange);line-height:1;margin-bottom:4px;}
 .ctr-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;}
 
+/* ── MODULE GRID ── */
+.module-grid{display:grid;gap:6px;margin-top:8px;}
+.module-grid.cols2{grid-template-columns:1fr 1fr;}
+.module-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--surface2);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-decoration:none;transition:color .2s,border-color .2s,background .2s;cursor:none;position:relative;overflow:hidden;}
+.module-row::before{content:'';position:absolute;inset:0;background:var(--mod-color,rgba(255,107,26,.08));transform:translateX(-101%);transition:transform .3s;}
+.module-row:hover{color:#fff;border-color:var(--mod-color,rgba(255,107,26,.4));}
+.module-row:hover::before{transform:translateX(0);}
+.module-row .mlbl{position:relative;z-index:1;}
+.module-row .marr{position:relative;z-index:1;font-size:14px;}
+.module-row.cyan{--mod-color:rgba(8,145,178,.2);}
+.module-row.green{--mod-color:rgba(22,163,74,.2);}
+.module-row.amber{--mod-color:rgba(180,83,9,.2);}
+.module-row.orange{--mod-color:rgba(255,107,26,.2);}
+.module-row.purple{--mod-color:rgba(124,58,237,.2);}
+
 @media(max-width:768px){
   nav{padding:12px 20px;}
   .nav-links{display:none;}
@@ -192,6 +208,8 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
   .card-grid{grid-template-columns:1fr;}
   .counter-strip{flex-wrap:wrap;}
   .ctr-item{min-width:50%;border-right:none;border-bottom:1px solid var(--border);}
+  .module-grid.cols2{grid-template-columns:1fr;}
+  .btn-grid.cols2{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -210,7 +228,6 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
     <li><a href="#maths">Maths</a></li>
     <li><a href="#full-packs">Full Packs</a></li>
     <li><a href="#test-series">Tests</a></li>
-    <li><a href="#arjuna">Arjuna</a></li>
     <li><a href="#boards">Boards</a></li>
   </ul>
 </nav>
@@ -228,7 +245,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
     <div class="badge lit">🔥 JEE 2026 Ready</div>
     <div class="badge cyan">Physics · Chemistry · Maths</div>
     <div class="badge green">✓ Free Downloads</div>
-    <div class="badge">Allen · PW · Cengage</div>
+    <div class="badge">Allen · PW · Cengage · HC Verma</div>
     <div class="badge">10+ Test Series</div>
   </div>
   <div class="scroll-hint">
@@ -323,9 +340,63 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
     </div>
   </div>
   <div class="card-grid">
+
+    <!-- HC VERMA -->
     <div class="mat-card reveal rd1">
-      <div class="card-eyebrow">Quick Revision</div>
-      <div class="card-title">Short Notes & Sheets</div>
+      <div class="card-eyebrow">Essential Reference</div>
+      <div class="card-title">HC Verma — Concepts of Physics</div>
+      <div class="info-strip cyan"><strong>Must Have:</strong> The gold standard for JEE Physics — both volumes.</div>
+      <div class="topic-tags">
+        <span class="ttag c">Mechanics</span><span class="ttag c">Thermodynamics</span><span class="ttag c">Electrostatics</span><span class="ttag c">Optics</span><span class="ttag c">Modern Physics</span>
+      </div>
+      <div class="btn-stack">
+        <a href="https://drive.google.com/file/d/19v6D859MU7bhVN2_ulD1MqZKiVoe7DUe/view?usp=sharing" class="dl-btn cyan" target="_blank">
+          <span class="lbl">HC Verma Vol. 1 (2025–26)</span><span class="arr">→</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1pWKeWDy80QiFOiYtx45-fdu6OVAgaTe2/view?usp=sharing" class="dl-btn cyan" target="_blank">
+          <span class="lbl">HC Verma Vol. 2 (2025–26)</span><span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- SKC + PW Notes -->
+    <div class="mat-card reveal rd2">
+      <div class="card-eyebrow">PW — Saleem Sir's Notes</div>
+      <div class="card-title">SKC Physics Notes</div>
+      <div class="info-strip cyan"><strong>From PW Arjuna Batch:</strong> Saleem Khopcha Concept — Class 11 crush notes.</div>
+      <div class="card-desc">Highly concise, exam-ready concept notes from PW's Arjuna batch — perfect for rapid revision.</div>
+      <div class="btn-stack">
+        <a href="https://drive.google.com/file/d/1zvyHxSLtIreLFVofDiME4mMkI6JuGSCc/view?usp=drive_link" class="dl-btn orange" target="_blank">
+          <span class="lbl">SKC Physics — Crush Class 11</span><span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ARJUNA Physics Modules -->
+    <div class="mat-card reveal rd3">
+      <div class="card-eyebrow">PW Arjuna Batch — 2026 Edition</div>
+      <div class="card-title">Arjuna Physics Modules 1–4</div>
+      <div class="info-strip cyan"><strong>2026 Edition:</strong> Same content as paid PW Arjuna batch — completely free.</div>
+      <div class="module-grid">
+        <a href="https://drive.google.com/file/d/1TTShuOCX5_DLadV6vLF5pPiVROKdljGs/view?usp=sharing" class="module-row cyan" target="_blank">
+          <span class="mlbl">📘 Physics Module 1 — 2026</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1OYw3bNYIhdO4B-hSkrVRHvgsouRCadvR/view?usp=drive_link" class="module-row cyan" target="_blank">
+          <span class="mlbl">📘 Physics Module 2 — 2026</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1DD3AsepZxKhmQ-lUz26NpBZ8pTzdQZWS/view?usp=sharing" class="module-row cyan" target="_blank">
+          <span class="mlbl">📘 Physics Module 3</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1V-T5RKvyv9_lV34X_4mwbgHbMubWeDec/view?usp=sharing" class="module-row cyan" target="_blank">
+          <span class="mlbl">📘 Physics Module 4</span><span class="marr">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Short Notes + Complete -->
+    <div class="mat-card reveal rd4">
+      <div class="card-eyebrow">Quick Revision & Full Material</div>
+      <div class="card-title">Notes & Complete Drive</div>
       <div class="topic-tags">
         <span class="ttag c">Mechanics</span><span class="ttag c">Electrostatics</span><span class="ttag c">Optics</span><span class="ttag c">Modern Physics</span>
       </div>
@@ -333,35 +404,15 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
         <a href="https://drive.google.com/drive/folders/13N5OKS5F8QortRKHdvP2fKb7EgITcN9I" class="dl-btn cyan" target="_blank">
           <span class="lbl">Premium Short Notes — Physics</span><span class="arr">→</span>
         </a>
-      </div>
-    </div>
-    <div class="mat-card reveal rd2">
-      <div class="card-eyebrow">Full Material</div>
-      <div class="card-title">Physics — JEE Complete</div>
-      <div class="info-strip cyan"><strong>Source:</strong> Cengage + Allen + FIITJEE Modules</div>
-      <div class="btn-stack">
-        <a href="https://drive.google.com/drive/folders/1-9e_m2LSJUT5qb0fXVIEfEYfGVFhQbmy" class="dl-btn cyan" target="_blank">
-          <span class="lbl">Physics — JEE (Mains & Advanced)</span><span class="arr">→</span>
+        <a href="https://drive.google.com/drive/folders/1-9e_m2LSJUT5qb0fXVIEfEYfGVFhQbmy" class="dl-btn orange" target="_blank">
+          <span class="lbl">Physics JEE (Mains & Advanced)</span><span class="arr">→</span>
         </a>
-        <a href="https://drive.google.com/drive/folders/1SyCtiJ0OdFObYXIIBMYiEk880aEnzJrL" class="dl-btn orange" target="_blank">
+        <a href="https://drive.google.com/drive/folders/1SyCtiJ0OdFObYXIIBMYiEk880aEnzJrL" class="dl-btn amber" target="_blank">
           <span class="lbl">Cengage Physics (Class 11 & 12)</span><span class="arr">→</span>
         </a>
       </div>
     </div>
-    <div class="mat-card reveal rd3">
-      <div class="card-eyebrow">HC Verma · 2025-26 Edition</div>
-      <div class="card-title">Concepts of Physics</div>
-      <div class="card-desc">The most trusted Physics reference for JEE — both volumes, latest 2025-26 edition.</div>
-      <div class="btn-grid cols2">
-        <a href="https://drive.google.com/file/d/19v6D859MU7bhVN2_ulD1MqZKiVoe7DUe/view?usp=sharing" class="mini-btn cyan" target="_blank"><span>HC Verma Vol. 1</span></a>
-        <a href="https://drive.google.com/file/d/1pWKeWDy80QiFOiYtx45-fdu6OVAgaTe2/view?usp=sharing" class="mini-btn cyan" target="_blank"><span>HC Verma Vol. 2</span></a>
-      </div>
-      <div class="btn-stack" style="margin-top:8px;">
-        <a href="https://drive.google.com/file/d/1zvyHxSLtIreLFVofDiME4mMkI6JuGSCc/view?usp=drive_link" class="dl-btn cyan" target="_blank">
-          <span class="lbl">SKC Physics Crush — Class 11</span><span class="arr">→</span>
-        </a>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -380,8 +431,49 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
     </div>
   </div>
   <div class="card-grid">
+
+    <!-- ARJUNA Chemistry Modules -->
     <div class="mat-card reveal rd1">
-      <div class="card-eyebrow">Notes & Formulas</div>
+      <div class="card-eyebrow">PW Arjuna Batch — 2026 Edition</div>
+      <div class="card-title">Arjuna Chemistry Modules 1–4</div>
+      <div class="info-strip green"><strong>2026 Edition:</strong> Covers Organic, Inorganic & Physical across all 4 modules.</div>
+      <div class="module-grid">
+        <a href="https://drive.google.com/file/d/1AGRHtl_xWh0PnnJ9W9XGQ4YTABPgoqBS/view?usp=sharing" class="module-row green" target="_blank">
+          <span class="mlbl">🧪 Chemistry Module 1 — 2026</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/131X5G1-XFf7KwCgxei4iGxnjUJ5N8YXV/view?usp=drive_link" class="module-row green" target="_blank">
+          <span class="mlbl">🧪 Chemistry Module 2 — 2026</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1aI0i4cKizJuVoH-_MMRmTAIKV22IUSdP/view?usp=sharing" class="module-row green" target="_blank">
+          <span class="mlbl">🧪 Chemistry Module 3</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/19PsRi0ZhOwcARVu53ND0dEHMDQgAnI-C/view?usp=sharing" class="module-row green" target="_blank">
+          <span class="mlbl">🧪 Chemistry Module 4</span><span class="marr">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- MS Chauhan + Narendra Awasthi -->
+    <div class="mat-card reveal rd2">
+      <div class="card-eyebrow">Best-in-Class Reference Books</div>
+      <div class="card-title">MS Chauhan & N. Awasthi</div>
+      <div class="info-strip green"><strong>Pro Tip:</strong> MS Chauhan for Organic · N. Awasthi for Physical — must-have duo.</div>
+      <div class="topic-tags">
+        <span class="ttag g">Organic</span><span class="ttag g">Physical</span><span class="ttag g">Advanced Level</span>
+      </div>
+      <div class="btn-stack">
+        <a href="https://drive.google.com/file/d/11NoJdbsp_TTEuowcn_5r3QDjZkLpEZeW/view?usp=sharing" class="dl-btn green" target="_blank">
+          <span class="lbl">MS Chauhan — JEE 19th Ed (2025)</span><span class="arr">→</span>
+        </a>
+        <a href="https://drive.google.com/file/d/18iMceNei_mEKTRWq6HuQIVo5JWv34C-g/view?usp=sharing" class="dl-btn teal" target="_blank">
+          <span class="lbl">Narendra Awasthi — 18th Ed</span><span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Notes & PYQs -->
+    <div class="mat-card reveal rd3">
+      <div class="card-eyebrow">Notes & PYQs</div>
       <div class="card-title">Quick Revision Kit</div>
       <div class="topic-tags">
         <span class="ttag g">Organic</span><span class="ttag g">Inorganic</span><span class="ttag g">Physical</span><span class="ttag g">Reactions</span>
@@ -398,8 +490,10 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
         </a>
       </div>
     </div>
-    <div class="mat-card reveal rd2">
-      <div class="card-eyebrow">PYQs & Books</div>
+
+    <!-- PYQs + NCERT + Short Notes -->
+    <div class="mat-card reveal rd4">
+      <div class="card-eyebrow">PYQs, NCERT & Premium Notes</div>
       <div class="card-title">Practice & Reference</div>
       <div class="info-strip green"><strong>Tip:</strong> NCERT Exemplar is must-do for Chemistry.</div>
       <div class="btn-stack">
@@ -409,27 +503,15 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
         <a href="https://drive.google.com/file/d/1uOjxDAuBv-Iq84nuHJiRQu6SsZqz2cPS/view?usp=drivesdk" class="dl-btn cyan" target="_blank">
           <span class="lbl">NCERT Exemplar — Chemistry</span><span class="arr">→</span>
         </a>
+        <a href="https://drive.google.com/drive/folders/15UOJHRVyv0WcChqdnFmnk0uRRi_tvnL0" class="dl-btn teal" target="_blank">
+          <span class="lbl">Premium Short Notes — Chemistry</span><span class="arr">→</span>
+        </a>
         <a href="https://drive.google.com/file/d/1m3vGFdNrYgzZZUomfjA9SgRvn0GGOMsi/view?usp=drivesdk" class="dl-btn orange" target="_blank">
           <span class="lbl">E-Book Chemistry</span><span class="arr">→</span>
         </a>
       </div>
     </div>
-    <div class="mat-card reveal rd3">
-      <div class="card-eyebrow">Premium + Reference</div>
-      <div class="card-title">Notes & Specialist Books</div>
-      <div class="card-desc">Concise notes for last-minute revision, plus specialist books by MS Chauhan & Narendra Awasthi.</div>
-      <div class="btn-stack">
-        <a href="https://drive.google.com/drive/folders/15UOJHRVyv0WcChqdnFmnk0uRRi_tvnL0" class="dl-btn green" target="_blank">
-          <span class="lbl">Premium Short Notes — Chemistry</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/11NoJdbsp_TTEuowcn_5r3QDjZkLpEZeW/view?usp=sharing" class="dl-btn teal" target="_blank">
-          <span class="lbl">MS Chauhan JEE — 19th Ed. 2025</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/18iMceNei_mEKTRWq6HuQIVo5JWv34C-g/view?usp=sharing" class="dl-btn amber" target="_blank">
-          <span class="lbl">Narendra Awasthi — 18th Ed.</span><span class="arr">→</span>
-        </a>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -448,7 +530,54 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
     </div>
   </div>
   <div class="card-grid">
+
+    <!-- ARJUNA Maths Modules -->
     <div class="mat-card reveal rd1">
+      <div class="card-eyebrow">PW Arjuna Batch — 2026 Edition</div>
+      <div class="card-title">Arjuna Maths Modules 1–4</div>
+      <div class="info-strip amber"><strong>2026 Edition:</strong> Structured problem sets with increasing difficulty — follows JEE pattern.</div>
+      <div class="module-grid">
+        <a href="https://drive.google.com/file/d/1PA2xWU7yisimkKGTyNwzPlsfKNWCxCvV/view?usp=sharing" class="module-row amber" target="_blank">
+          <span class="mlbl">📐 Maths Module 1 — 2026</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1fVSWRAMB4vAuwzow-N36n_9QsEc-fW4t/view?usp=sharing" class="module-row amber" target="_blank">
+          <span class="mlbl">📐 Maths Module 2 — 2026</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1uaPVjSCcdyEqop1Rp2xN1eTIk-Woo1cU/view?usp=sharing" class="module-row amber" target="_blank">
+          <span class="mlbl">📐 Maths Module 3</span><span class="marr">↓</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1cZ__5W913ozLZiLvDCpCoHgGLS1nxUEr/view?usp=sharing" class="module-row amber" target="_blank">
+          <span class="mlbl">📐 Maths Module 4 — 2026</span><span class="marr">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Reference Books -->
+    <div class="mat-card reveal rd2">
+      <div class="card-eyebrow">Reference Books</div>
+      <div class="card-title">Black Book · Cengage · RD Sharma</div>
+      <div class="info-strip amber"><strong>Black Book</strong> by Vikas Gupta — the most advanced Maths problem book for JEE. A must for top rankers.</div>
+      <div class="topic-tags">
+        <span class="ttag a">Algebra</span><span class="ttag a">Calculus</span><span class="ttag a">Class 11</span><span class="ttag a">Advanced Level</span>
+      </div>
+      <div class="btn-stack">
+        <a href="https://drive.google.com/file/d/1FjOFurbCQWLxB0ylOKgFDOg_JTxUjBh-/view?usp=sharing" class="dl-btn orange" target="_blank">
+          <span class="lbl">⬛ Black Book — Vikas Gupta (Maths)</span><span class="arr">→</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1blL_xyw53FcQ6whmsmfq5U9Sip4vEcK3/view?usp=sharing" class="dl-btn amber" target="_blank">
+          <span class="lbl">Cengage Algebra — G. Tewani</span><span class="arr">→</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1-xz0uJGfJie3GBmjOGwfp-TzPsBFOfK2/view?usp=sharing" class="dl-btn orange" target="_blank">
+          <span class="lbl">RD Sharma Class 11 (2025–26)</span><span class="arr">→</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1Gfoj-Wcb86Kay_9c8-Ou47hwuVf8iclS/view?usp=sharing" class="dl-btn teal" target="_blank">
+          <span class="lbl">Maths Eajee — 11th Complete</span><span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Formulas & Notes -->
+    <div class="mat-card reveal rd3">
       <div class="card-eyebrow">Formulas & Notes</div>
       <div class="card-title">Core Study Kit</div>
       <div class="topic-tags">
@@ -464,11 +593,16 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
         <a href="https://drive.google.com/drive/folders/1BJO7P1ullg2DczBn_DZBQD7IF9KebpME" class="dl-btn cyan" target="_blank">
           <span class="lbl">Mind Maps — Maths</span><span class="arr">→</span>
         </a>
+        <a href="https://drive.google.com/drive/folders/1zm17_0SM12SyaBOKLigIE4zsA00JgFDr" class="dl-btn amber" target="_blank">
+          <span class="lbl">Premium Short Notes — Maths</span><span class="arr">→</span>
+        </a>
       </div>
     </div>
-    <div class="mat-card reveal rd2">
-      <div class="card-eyebrow">Practice</div>
-      <div class="card-title">Questions & PYQs</div>
+
+    <!-- PYQs & Practice -->
+    <div class="mat-card reveal rd4">
+      <div class="card-eyebrow">Practice & PYQs</div>
+      <div class="card-title">Questions & PYQ Banks</div>
       <div class="info-strip amber"><strong>Focus:</strong> Practice Questions + NCERT Exemplar = Winning Combo.</div>
       <div class="btn-stack">
         <a href="https://drive.google.com/file/d/1lC-uhHg_bOjrlmBYwwIxxf0EL-eofcIF/view?usp=drivesdk" class="dl-btn amber" target="_blank">
@@ -480,30 +614,12 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
         <a href="https://drive.google.com/drive/folders/1AdHm9Aye77w25BRXjaSKU0W1j3XR048N" class="dl-btn cyan" target="_blank">
           <span class="lbl">NCERT Exemplar — Maths</span><span class="arr">→</span>
         </a>
-      </div>
-    </div>
-    <div class="mat-card reveal rd3">
-      <div class="card-eyebrow">Reference Books</div>
-      <div class="card-title">Specialist Maths Books</div>
-      <div class="card-desc">Top reference books for Maths — Cengage Algebra, RD Sharma, Eajee, and extra question banks.</div>
-      <div class="btn-stack">
-        <a href="https://drive.google.com/file/d/1blL_xyw53FcQ6whmsmfq5U9Sip4vEcK3/view?usp=sharing" class="dl-btn amber" target="_blank">
-          <span class="lbl">Cengage Algebra — G Tewani</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/1-xz0uJGfJie3GBmjOGwfp-TzPsBFOfK2/view?usp=sharing" class="dl-btn orange" target="_blank">
-          <span class="lbl">RD Sharma — Class 11 (25-26)</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/1Gfoj-Wcb86Kay_9c8-Ou47hwuVf8iclS/view?usp=sharing" class="dl-btn cyan" target="_blank">
-          <span class="lbl">Maths Eajee — Class 11 Complete</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/drive/folders/1dInjFcqZKkgeCW0QLdmEdfmWDCXYuMul" class="dl-btn green" target="_blank">
+        <a href="https://drive.google.com/drive/folders/1dInjFcqZKkgeCW0QLdmEdfmWDCXYuMul" class="dl-btn orange" target="_blank">
           <span class="lbl">Additional Question Practice</span><span class="arr">→</span>
         </a>
-        <a href="https://drive.google.com/drive/folders/1zm17_0SM12SyaBOKLigIE4zsA00JgFDr" class="dl-btn amber" target="_blank">
-          <span class="lbl">Premium Short Notes — Maths</span><span class="arr">→</span>
-        </a>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -630,17 +746,21 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
           <span class="lbl">Cengage — Class 11 & 12 + IIT</span><span class="arr">→</span>
         </a>
         <a href="https://drive.google.com/file/d/1blL_xyw53FcQ6whmsmfq5U9Sip4vEcK3/view?usp=sharing" class="dl-btn amber" target="_blank">
-          <span class="lbl">Cengage Algebra — G Tewani</span><span class="arr">→</span>
+          <span class="lbl">Cengage Algebra — G. Tewani</span><span class="arr">→</span>
         </a>
       </div>
     </div>
     <div class="mat-card reveal rd2">
       <div class="card-eyebrow">Physics Wallah</div>
-      <div class="card-title">PW Modules</div>
-      <div class="card-desc">Physics Wallah's complete module set — same content as Arjuna / Batch paid courses.</div>
+      <div class="card-title">PW Arjuna Modules (All 3 Subjects)</div>
+      <div class="info-strip cyan"><strong>PW Arjuna 2026:</strong> All 4 modules per subject — Physics, Chemistry & Maths.</div>
+      <div class="card-desc">Physics Wallah's complete Arjuna module set — 12 modules total across all 3 subjects.</div>
       <div class="btn-stack">
         <a href="https://drive.google.com/drive/folders/15WwQVRSwI9pbovSJf5K5kC4HRebW2h4n" class="dl-btn cyan" target="_blank">
-          <span class="lbl">PW Modules & Study Material</span><span class="arr">→</span>
+          <span class="lbl">PW Modules & Study Material Drive</span><span class="arr">→</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1zvyHxSLtIreLFVofDiME4mMkI6JuGSCc/view?usp=drive_link" class="dl-btn orange" target="_blank">
+          <span class="lbl">SKC Physics Notes (Saleem Sir)</span><span class="arr">→</span>
         </a>
       </div>
     </div>
@@ -666,109 +786,12 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-
 <div class="divider"></div>
 
 <!-- ══════════════════════════════════
-     08 · ARJUNA JEE 2026 MODULES
-══════════════════════════════════ -->
-<section class="mat-section" id="arjuna">
-  <div class="glow-corner glow-p"></div>
-  <div class="sec-header reveal">
-    <div class="sec-num">08</div>
-    <div class="sec-info">
-      <div class="sec-tag tag-all">// PW Arjuna Batch · 2026 Edition</div>
-      <h2 class="sec-title">Arjuna JEE<br>2026 Modules</h2>
-    </div>
-  </div>
-  <div class="card-grid">
-
-    <!-- PHYSICS MODULES -->
-    <div class="mat-card reveal rd1">
-      <div class="card-eyebrow">Physics Wallah · Arjuna</div>
-      <div class="card-title">Physics Modules</div>
-      <div class="info-strip cyan"><strong>2026 Edition</strong> — All 4 modules from the Arjuna Batch</div>
-      <div class="topic-tags">
-        <span class="ttag c">Mechanics</span><span class="ttag c">Thermodynamics</span><span class="ttag c">Electromagnetism</span><span class="ttag c">Optics</span>
-      </div>
-      <div class="btn-grid cols2">
-        <a href="https://drive.google.com/file/d/1TTShuOCX5_DLadV6vLF5pPiVROKdljGs/view?usp=sharing" class="mini-btn cyan" target="_blank"><span>Module 1</span></a>
-        <a href="https://drive.google.com/file/d/1OYw3bNYIhdO4B-hSkrVRHvgsouRCadvR/view?usp=drive_link" class="mini-btn cyan" target="_blank"><span>Module 2</span></a>
-        <a href="https://drive.google.com/file/d/1DD3AsepZxKhmQ-lUz26NpBZ8pTzdQZWS/view?usp=sharing" class="mini-btn cyan" target="_blank"><span>Module 3</span></a>
-        <a href="https://drive.google.com/file/d/1V-T5RKvyv9_lV34X_4mwbgHbMubWeDec/view?usp=sharing" class="mini-btn cyan" target="_blank"><span>Module 4</span></a>
-      </div>
-      <div class="btn-stack" style="margin-top:12px;">
-        <a href="https://drive.google.com/file/d/1zvyHxSLtIreLFVofDiME4mMkI6JuGSCc/view?usp=drive_link" class="dl-btn cyan" target="_blank">
-          <span class="lbl">SKC Physics Crush — Class 11</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/19v6D859MU7bhVN2_ulD1MqZKiVoe7DUe/view?usp=sharing" class="dl-btn orange" target="_blank">
-          <span class="lbl">HC Verma Vol. 1 (2025-26)</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/1pWKeWDy80QiFOiYtx45-fdu6OVAgaTe2/view?usp=sharing" class="dl-btn orange" target="_blank">
-          <span class="lbl">HC Verma Vol. 2 (2025-26)</span><span class="arr">→</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- CHEMISTRY MODULES -->
-    <div class="mat-card reveal rd2">
-      <div class="card-eyebrow">Physics Wallah · Arjuna</div>
-      <div class="card-title">Chemistry Modules</div>
-      <div class="info-strip green"><strong>2026 Edition</strong> — All 4 modules from the Arjuna Batch</div>
-      <div class="topic-tags">
-        <span class="ttag g">Organic</span><span class="ttag g">Inorganic</span><span class="ttag g">Physical</span><span class="ttag g">GOC</span>
-      </div>
-      <div class="btn-grid cols2">
-        <a href="https://drive.google.com/file/d/1AGRHtl_xWh0PnnJ9W9XGQ4YTABPgoqBS/view?usp=sharing" class="mini-btn green" target="_blank"><span>Module 1</span></a>
-        <a href="https://drive.google.com/file/d/131X5G1-XFf7KwCgxei4iGxnjUJ5N8YXV/view?usp=drive_link" class="mini-btn green" target="_blank"><span>Module 2</span></a>
-        <a href="https://drive.google.com/file/d/1aI0i4cKizJuVoH-_MMRmTAIKV22IUSdP/view?usp=sharing" class="mini-btn green" target="_blank"><span>Module 3</span></a>
-        <a href="https://drive.google.com/file/d/19PsRi0ZhOwcARVu53ND0dEHMDQgAnI-C/view?usp=sharing" class="mini-btn green" target="_blank"><span>Module 4</span></a>
-      </div>
-      <div class="btn-stack" style="margin-top:12px;">
-        <a href="https://drive.google.com/file/d/11NoJdbsp_TTEuowcn_5r3QDjZkLpEZeW/view?usp=sharing" class="dl-btn green" target="_blank">
-          <span class="lbl">MS Chauhan JEE — 19th Ed. 2025</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/18iMceNei_mEKTRWq6HuQIVo5JWv34C-g/view?usp=sharing" class="dl-btn teal" target="_blank">
-          <span class="lbl">Narendra Awasthi — 18th Ed.</span><span class="arr">→</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- MATHS MODULES -->
-    <div class="mat-card reveal rd3">
-      <div class="card-eyebrow">Physics Wallah · Arjuna</div>
-      <div class="card-title">Maths Modules</div>
-      <div class="info-strip amber"><strong>2026 Edition</strong> — All 4 modules from the Arjuna Batch</div>
-      <div class="topic-tags">
-        <span class="ttag a">Algebra</span><span class="ttag a">Calculus</span><span class="ttag a">Coordinate</span><span class="ttag a">Vectors</span>
-      </div>
-      <div class="btn-grid cols2">
-        <a href="https://drive.google.com/file/d/1PA2xWU7yisimkKGTyNwzPlsfKNWCxCvV/view?usp=sharing" class="mini-btn amber" target="_blank"><span>Module 1</span></a>
-        <a href="https://drive.google.com/file/d/1fVSWRAMB4vAuwzow-N36n_9QsEc-fW4t/view?usp=sharing" class="mini-btn amber" target="_blank"><span>Module 2</span></a>
-        <a href="https://drive.google.com/file/d/1uaPVjSCcdyEqop1Rp2xN1eTIk-Woo1cU/view?usp=sharing" class="mini-btn amber" target="_blank"><span>Module 3</span></a>
-        <a href="https://drive.google.com/file/d/1cZ__5W913ozLZiLvDCpCoHgGLS1nxUEr/view?usp=sharing" class="mini-btn amber" target="_blank"><span>Module 4</span></a>
-      </div>
-      <div class="btn-stack" style="margin-top:12px;">
-        <a href="https://drive.google.com/file/d/1Gfoj-Wcb86Kay_9c8-Ou47hwuVf8iclS/view?usp=sharing" class="dl-btn amber" target="_blank">
-          <span class="lbl">Maths Eajee — Class 11 Complete</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/1-xz0uJGfJie3GBmjOGwfp-TzPsBFOfK2/view?usp=sharing" class="dl-btn orange" target="_blank">
-          <span class="lbl">RD Sharma — Class 11 (25-26)</span><span class="arr">→</span>
-        </a>
-        <a href="https://drive.google.com/file/d/1blL_xyw53FcQ6whmsmfq5U9Sip4vEcK3/view?usp=sharing" class="dl-btn cyan" target="_blank">
-          <span class="lbl">Cengage Algebra — G Tewani</span><span class="arr">→</span>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════
-     09 · BOARDS
+     08 · BOARDS
 ══════════════════════════════════ -->
 <section class="mat-section" id="boards">
   <div class="glow-corner glow-g"></div>
   <div class="sec-header reveal">
-    <div class="sec-num">09</div>
+    <div class="sec-num">08</div>
     <div class="sec-info">
       <div class="sec-tag tag-board">// Class 12 Boards</div>
       <h2 class="sec-title">Board<br>Material</h2>
