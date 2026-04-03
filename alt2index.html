@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE NEXUS — Study Arsenal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030712;
+    --surface: #0a0f1e;
+    --surface2: #0d1528;
+    --phys: #00d4ff;
+    --phys-dim: rgba(0,212,255,0.08);
+    --chem: #39ff14;
+    --chem-dim: rgba(57,255,20,0.08);
+    --math: #ff6b35;
+    --math-dim: rgba(255,107,53,0.08);
+    --gold: #ffd700;
+    --white: #e8f4fd;
+    --muted: #4a5568;
+    --border: rgba(255,255,255,0.06);
+    --glow-phys: 0 0 20px rgba(0,212,255,0.4), 0 0 60px rgba(0,212,255,0.15);
+    --glow-chem: 0 0 20px rgba(57,255,20,0.4), 0 0 60px rgba(57,255,20,0.15);
+    --glow-math: 0 0 20px rgba(255,107,53,0.4), 0 0 60px rgba(255,107,53,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(0,212,255,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(57,255,20,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255,107,53,0.02) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgPulse {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* Scanline effect */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--phys);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .header-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(36px, 7vw, 80px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 0.95;
+    background: linear-gradient(135deg, #fff 0%, var(--phys) 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+
+  .header-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-top: 14px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+
+  .header-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+
+  .h-line { height: 1px; width: 80px; background: linear-gradient(90deg, transparent, var(--phys)); }
+  .h-line.right { background: linear-gradient(90deg, var(--phys), transparent); }
+  .h-diamond {
+    width: 8px; height: 8px;
+    background: var(--phys);
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px var(--phys);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION TABS */
+  .tabs-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(3,7,18,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 20px 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    position: relative;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .tab.phys { }
+  .tab.phys::after { background: var(--phys); box-shadow: 0 0 10px var(--phys); }
+  .tab.phys.active, .tab.phys:hover { color: var(--phys); }
+
+  .tab.chem::after { background: var(--chem); box-shadow: 0 0 10px var(--chem); }
+  .tab.chem.active, .tab.chem:hover { color: var(--chem); }
+
+  .tab.math::after { background: var(--math); box-shadow: 0 0 10px var(--math); }
+  .tab.math.active, .tab.math:hover { color: var(--math); }
+
+  .tab.all::after { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+  .tab.all.active, .tab.all:hover { color: var(--gold); }
+
+  .tab.active::after { transform: scaleX(1); }
+
+  .tab-icon { font-size: 16px; }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* SECTION */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header {
+    margin-bottom: 48px;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .section-count {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    padding-bottom: 8px;
+    letter-spacing: 2px;
+  }
+
+  /* CATEGORY LABEL */
+  .cat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cat-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* CARDS GRID */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* BOOK CARD */
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s ease;
+    animation: cardIn 0.5s ease both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Color themes per section */
+  .card.p { --accent: var(--phys); --accent-dim: var(--phys-dim); }
+  .card.c { --accent: var(--chem); --accent-dim: var(--chem-dim); }
+  .card.m { --accent: var(--math); --accent-dim: var(--math-dim); }
+  .card.g { --accent: var(--gold); --accent-dim: rgba(255,215,0,0.08); }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .card:hover::before { transform: scaleX(1); }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-dim);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover::after { opacity: 1; }
+
+  /* Corner decorations */
+  .card-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+  .card-corner.tl { top: 8px; left: 8px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+  .card-corner.br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+  .card:hover .card-corner { opacity: 1; }
+
+  .card-inner {
+    position: relative;
+    z-index: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .badge-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .card-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+  }
+
+  .card-btn {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    transition: gap 0.2s ease;
+  }
+
+  .card:hover .card-btn { gap: 12px; }
+
+  .card-btn-arrow {
+    width: 18px; height: 1px;
+    background: var(--accent);
+    position: relative;
+    transition: width 0.2s ease;
+  }
+  .card-btn-arrow::after {
+    content: '';
+    position: absolute;
+    right: 0; top: -3px;
+    width: 6px; height: 6px;
+    border-right: 1px solid var(--accent);
+    border-top: 1px solid var(--accent);
+    transform: rotate(45deg);
+  }
+  .card:hover .card-btn-arrow { width: 26px; }
+
+  /* FOLDER CARDS (wider) */
+  .card.folder {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 640px) {
+    .card.folder { grid-column: span 1; }
+  }
+
+  /* HERO BANNER */
+  .hero-banner {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, transparent 60%);
+  }
+
+  .banner-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .banner-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .banner-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+  }
+
+  .banner-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: right;
+  }
+
+  .stat-val {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-lbl {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ALL SECTION SUBJECTS GRID */
+  .subjects-hero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  @media (max-width: 680px) {
+    .subjects-hero { grid-template-columns: 1fr; }
+  }
+
+  .subj-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 36px 28px;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .subj-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .subj-card.phys { --sc: var(--phys); }
+  .subj-card.chem { --sc: var(--chem); }
+  .subj-card.math { --sc: var(--math); }
+
+  .subj-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center bottom, rgba(var(--sc-rgb), 0.1) 0%, transparent 70%);
+  }
+
+  .subj-card.phys::before { background: radial-gradient(ellipse at center bottom, rgba(0,212,255,0.1) 0%, transparent 70%); }
+  .subj-card.chem::before { background: radial-gradient(ellipse at center bottom, rgba(57,255,20,0.1) 0%, transparent 70%); }
+  .subj-card.math::before { background: radial-gradient(ellipse at center bottom, rgba(255,107,53,0.1) 0%, transparent 70%); }
+
+  .subj-card:hover { border-color: var(--sc); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .subj-card.phys:hover { box-shadow: 0 8px 32px rgba(0,212,255,0.15); }
+  .subj-card.chem:hover { box-shadow: 0 8px 32px rgba(57,255,20,0.15); }
+  .subj-card.math:hover { box-shadow: 0 8px 32px rgba(255,107,53,0.15); }
+
+  .subj-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .subj-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--sc);
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .subj-count {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* MODULES CARDS */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .mod-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .mod-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  .mod-card.p { --accent: var(--phys); }
+  .mod-card.c { --accent: var(--chem); }
+  .mod-card.m { --accent: var(--math); }
+
+  .mod-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.2;
+    position: absolute;
+    top: 10px; right: 12px;
+    line-height: 1;
+  }
+
+  .mod-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .mod-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  /* SEARCH BAR */
+  .search-wrap {
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px 16px 48px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.3s ease;
+    letter-spacing: 1px;
+  }
+
+  .search-input::placeholder { color: var(--muted); }
+  .search-input:focus { border-color: var(--phys); box-shadow: 0 0 0 1px rgba(0,212,255,0.2); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 3px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header { padding: 40px 20px 30px; }
+    main { padding: 40px 20px 60px; }
+    .tabs-wrapper { padding: 0 20px; }
+    .hero-banner { grid-template-columns: 1fr; padding: 28px; }
+    .banner-stats { text-align: left; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .tab { font-size: 9px; letter-spacing: 1px; padding: 16px 8px; }
+    .tab-icon { display: none; }
+    footer { padding: 30px 20px; }
+  }
+
+  /* Particle effect on hover */
+  @keyframes floatParticle {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-40px) scale(0); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<header>
+  <div class="header-eyebrow">// INITIALIZING STUDY SYSTEM v2.0.26</div>
+  <h1 class="header-title">JEE NEXUS</h1>
+  <p class="header-sub">COMPLETE STUDY ARSENAL — MAINS & ADVANCED</p>
+  <div class="header-line">
+    <div class="h-line"></div>
+    <div class="h-diamond"></div>
+    <div class="h-line right"></div>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab all active" onclick="switchTab('all')">
+      <span class="tab-icon">⬡</span> ALL
+    </button>
+    <button class="tab phys" onclick="switchTab('physics')">
+      <span class="tab-icon">⚡</span> PHYSICS
+    </button>
+    <button class="tab chem" onclick="switchTab('chemistry')">
+      <span class="tab-icon">⬡</span> CHEMISTRY
+    </button>
+    <button class="tab math" onclick="switchTab('maths')">
+      <span class="tab-icon">∑</span> MATHS
+    </button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ======= ALL SECTION ======= -->
+  <section class="section active" id="sec-all">
+
+    <div class="hero-banner">
+      <div style="position:relative;z-index:1;">
+        <div class="banner-eyebrow">// PREMIUM COLLECTION</div>
+        <div class="banner-title">Complete JEE Study Arsenal</div>
+        <div class="banner-desc">Curated books, modules, test series, PYQs &amp; short notes for JEE Mains &amp; Advanced 2026</div>
+      </div>
+      <div class="banner-stats">
+        <div>
+          <span class="stat-val">50+</span>
+          <span class="stat-lbl">RESOURCES</span>
+        </div>
+        <div>
+          <span class="stat-val">3</span>
+          <span class="stat-lbl">SUBJECTS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subjects-hero">
+      <div class="subj-card phys" onclick="switchTab('physics')">
+        <span class="subj-icon">⚡</span>
+        <span class="subj-name">PHYSICS</span>
+        <span class="subj-count">HC VERMA · PW MODULES · ARJUNA</span>
+      </div>
+      <div class="subj-card chem" onclick="switchTab('chemistry')">
+        <span class="subj-icon">🧪</span>
+        <span class="subj-name">CHEMISTRY</span>
+        <span class="subj-count">MS CHAUHAN · NARENDRA AWASTHI · SKC</span>
+      </div>
+      <div class="subj-card math" onclick="switchTab('maths')">
+        <span class="subj-icon">∑</span>
+        <span class="subj-name">MATHS</span>
+        <span class="subj-count">CENGAGE · RD SHARMA · PW MODULES</span>
+      </div>
+    </div>
+
+    <div class="cat-label">// MASTER DRIVES</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/14jnh27PZr_BKaa18sLIL698Ag5yzHUdx" target="_blank" class="card g folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>JEE 2026</div>
+          <div class="card-title">JEE 2026 — Complete Drive</div>
+          <div class="card-btn">ACCESS DRIVE <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1qIuISGPPZRZXoLiFF0XarGRMsm84laGS" target="_blank" class="card g folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>JEE 2027</div>
+          <div class="card-title">JEE 2027 — Complete Drive + All PYQ Books</div>
+          <div class="card-btn">ACCESS DRIVE <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1gGbIlCMKDAo6TfH_3vLW2swzZ_W0Ttdz" target="_blank" class="card g">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>COMPLETE PACKAGE</div>
+          <div class="card-title">JEE Complete Material Package</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1G85ClGqb-M69rRMARVXDEFhTApQhiteV" target="_blank" class="card g">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>NEW</div>
+          <div class="card-title">New Added Materials</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1JdM_Mr7uRa2yTTAFvanA8rcfx2x8hoa1" target="_blank" class="card g">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>ADVANCED</div>
+          <div class="card-title">JEE Advanced Drive</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1vPi_-ECwmHpk6rkC2caYzB6bfgm2-tGQ" target="_blank" class="card g">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>HINDI MEDIUM</div>
+          <div class="card-title">Hindi Medium Books</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/10QSgMs_PoN2k0D05X0CR25zNFjx80vO0" target="_blank" class="card g">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PYQ</div>
+          <div class="card-title">Top 100 PYQs</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/15WwQVRSwI9pbovSJf5K5kC4HRebW2h4n" target="_blank" class="card g">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PW</div>
+          <div class="card-title">PW Study Material (Complete)</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// TEST SERIES</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/1IHzIuqo6XiO3kVfrPlLpXIFg9UIBoX71" target="_blank" class="card g folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>ALL ONGOING</div>
+          <div class="card-title">All Ongoing Test Series — Eklavya</div>
+          <div class="card-btn">ACCESS <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1hBqK5BUnw9YIC8aOSRGH_v0CGwXUWsLH" target="_blank" class="card g folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>ALLEN</div>
+          <div class="card-title">Allen Latest Test Series + Materials</div>
+          <div class="card-btn">ACCESS <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// TEST SERIES LIBRARY</div>
+    <div class="modules-grid">
+      <a href="https://drive.google.com/drive/folders/1QMHDdetiQn4QsQAqTCFXXfSDWDSzfVA3" target="_blank" class="mod-card g">
+        <span class="mod-num">01</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 1</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/14vNdkg7nSf6G3zD6WmPewmQB2Avgc6bU" target="_blank" class="mod-card g">
+        <span class="mod-num">02</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 2</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1ZfVbsEhMRVyBk-CgpAnehSYzHN4JfjXp" target="_blank" class="mod-card g">
+        <span class="mod-num">03</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 3</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1_QhFt-Xsk0hswRK3YwgjBQx9HLSilrvR" target="_blank" class="mod-card g">
+        <span class="mod-num">04</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 4</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1ogo-VYzxrPlxhBUC2ZRheBolw9mlMnDm" target="_blank" class="mod-card g">
+        <span class="mod-num">05</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 5</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1SUir2hhGur6GuNLg0nTjWLzYQMKiUFcs" target="_blank" class="mod-card g">
+        <span class="mod-num">06</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 6</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1IqndZq8JD5y7hbVVMHWAF5QpTc3ymZ7e" target="_blank" class="mod-card g">
+        <span class="mod-num">07</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 7</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1Ca7jSKUn4kxoP0Y5g8tOoS23H4EJ6oZ5" target="_blank" class="mod-card g">
+        <span class="mod-num">08</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 8</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1IHzIuqo6XiO3kVfrPlLpXIFg9UIBoX71" target="_blank" class="mod-card g">
+        <span class="mod-num">09</span>
+        <span class="mod-label">TEST SERIES</span>
+        <span class="mod-title">Test Series 9</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ======= PHYSICS SECTION ======= -->
+  <section class="section" id="sec-physics">
+
+    <div class="section-header">
+      <div class="section-label" style="color: var(--phys);">PHYSICS</div>
+      <div class="section-count">// RESOURCES LOADED</div>
+    </div>
+
+    <div class="cat-label">// ARJUNA JEE MODULES</div>
+    <div class="modules-grid">
+      <a href="https://drive.google.com/file/d/1TTShuOCX5_DLadV6vLF5pPiVROKdljGs/view?usp=sharing" target="_blank" class="mod-card p">
+        <span class="mod-num">M1</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Physics Module 1</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1OYw3bNYIhdO4B-hSkrVRHvgsouRCadvR/view?usp=drive_link" target="_blank" class="mod-card p">
+        <span class="mod-num">M2</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Physics Module 2</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1DD3AsepZxKhmQ-lUz26NpBZ8pTzdQZWS/view?usp=sharing" target="_blank" class="mod-card p">
+        <span class="mod-num">M3</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Physics Module 3</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1V-T5RKvyv9_lV34X_4mwbgHbMubWeDec/view?usp=sharing" target="_blank" class="mod-card p">
+        <span class="mod-num">M4</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Physics Module 4</span>
+      </a>
+    </div>
+
+    <div class="cat-label">// STANDARD BOOKS</div>
+    <div class="cards">
+      <a href="https://drive.google.com/file/d/19v6D859MU7bhVN2_ulD1MqZKiVoe7DUe/view?usp=sharing" target="_blank" class="card p">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>HC VERMA</div>
+          <div class="card-title">HC Verma Vol 1 — 2025-26 Edition</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1pWKeWDy80QiFOiYtx45-fdu6OVAgaTe2/view?usp=sharing" target="_blank" class="card p">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>HC VERMA</div>
+          <div class="card-title">HC Verma Vol 2 — 2025-26 Edition</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1h16p-kqAygnju9N8qAKs9wz99VP40lbh/view?usp=sharing" target="_blank" class="card p">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PW</div>
+          <div class="card-title">PW Physics Module 2025 Complete</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1zvyHxSLtIreLFVofDiME4mMkI6JuGSCc/view?usp=drive_link" target="_blank" class="card p">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>SKC · PW</div>
+          <div class="card-title">SKC Physics Crush — Class 11</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// SHORT NOTES</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/13N5OKS5F8QortRKHdvP2fKb7EgITcN9I" target="_blank" class="card p folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PREMIUM</div>
+          <div class="card-title">Physics Short Notes — Premium Quality</div>
+          <div class="card-btn">ACCESS NOTES <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// CENGAGE + IIT</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/1SyCtiJ0OdFObYXIIBMYiEk880aEnzJrL" target="_blank" class="card p folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>CENGAGE</div>
+          <div class="card-title">Cengage Class 11 &amp; 12 + IIT Materials</div>
+          <div class="card-btn">OPEN DRIVE <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ======= CHEMISTRY SECTION ======= -->
+  <section class="section" id="sec-chemistry">
+
+    <div class="section-header">
+      <div class="section-label" style="color: var(--chem);">CHEMISTRY</div>
+      <div class="section-count">// RESOURCES LOADED</div>
+    </div>
+
+    <div class="cat-label">// ARJUNA JEE MODULES</div>
+    <div class="modules-grid">
+      <a href="https://drive.google.com/file/d/1AGRHtl_xWh0PnnJ9W9XGQ4YTABPgoqBS/view?usp=sharing" target="_blank" class="mod-card c">
+        <span class="mod-num">M1</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Chemistry Module 1</span>
+      </a>
+      <a href="https://drive.google.com/file/d/131X5G1-XFf7KwCgxei4iGxnjUJ5N8YXV/view?usp=drive_link" target="_blank" class="mod-card c">
+        <span class="mod-num">M2</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Chemistry Module 2</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1aI0i4cKizJuVoH-_MMRmTAIKV22IUSdP/view?usp=sharing" target="_blank" class="mod-card c">
+        <span class="mod-num">M3</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Chemistry Module 3</span>
+      </a>
+      <a href="https://drive.google.com/file/d/19PsRi0ZhOwcARVu53ND0dEHMDQgAnI-C/view?usp=sharing" target="_blank" class="mod-card c">
+        <span class="mod-num">M4</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Chemistry Module 4</span>
+      </a>
+    </div>
+
+    <div class="cat-label">// STANDARD BOOKS</div>
+    <div class="cards">
+      <a href="https://drive.google.com/file/d/18iMceNei_mEKTRWq6HuQIVo5JWv34C-g/view?usp=sharing" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>NARENDRA AWASTHI</div>
+          <div class="card-title">Narendra Awasthi — 18th Edition 2025</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/11NoJdbsp_TTEuowcn_5r3QDjZkLpEZeW/view?usp=sharing" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>MS CHAUHAN</div>
+          <div class="card-title">MS Chauhan JEE — 19th Edition 2025</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/10V4UslssV-zGhU3IGq7FE-bxMWnyQgIx/view?usp=sharing" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>VK JAISWAL</div>
+          <div class="card-title">Balaji — Problems in Inorganic Chem Ch 1-5</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1Fc6IWUB5f8lE2DrVzKYRV9k4Lrb0_sbm/view?usp=sharing" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PW</div>
+          <div class="card-title">PW Chemistry Module 2025 Complete</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// REFERENCE MATERIALS</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/1ld6pejiLnAArNNl8SdSz4-3BQyQ2cRaX" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>NOTES</div>
+          <div class="card-title">Chemistry Notes — Full Drive</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/14fHg2DPmqak4d-AqaJqDXCSqN7AmN7aO/view?usp=drivesdk" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>QUICK REF</div>
+          <div class="card-title">Reaction Sheet</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1uOjxDAuBv-Iq84nuHJiRQu6SsZqz2cPS/view?usp=drivesdk" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>NCERT</div>
+          <div class="card-title">NCERT Exemplar — Chemistry</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1m3vGFdNrYgzZZUomfjA9SgRvn0GGOMsi/view?usp=drivesdk" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>E-BOOK</div>
+          <div class="card-title">E-Book Chemistry (Full)</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1Yp6wOb1JUYYJ1T2F5gU-F71cDjIpEcgi/view?usp=drivesdk" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>MIND MAPS</div>
+          <div class="card-title">Chemistry Mind Maps</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1HvxwGrzcxXggaG0DeYWUBTSpm1aJTUpQ" target="_blank" class="card c">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PYQ</div>
+          <div class="card-title">Chemistry PYQs — Full Drive</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// SHORT NOTES</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/15UOJHRVyv0WcChqdnFmnk0uRRi_tvnL0" target="_blank" class="card c folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PREMIUM</div>
+          <div class="card-title">Chemistry Short Notes — Premium Quality</div>
+          <div class="card-btn">ACCESS NOTES <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ======= MATHS SECTION ======= -->
+  <section class="section" id="sec-maths">
+
+    <div class="section-header">
+      <div class="section-label" style="color: var(--math);">MATHS</div>
+      <div class="section-count">// RESOURCES LOADED</div>
+    </div>
+
+    <div class="cat-label">// ARJUNA JEE MODULES</div>
+    <div class="modules-grid">
+      <a href="https://drive.google.com/file/d/1PA2xWU7yisimkKGTyNwzPlsfKNWCxCvV/view?usp=sharing" target="_blank" class="mod-card m">
+        <span class="mod-num">M1</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Maths Module 1</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1fVSWRAMB4vAuwzow-N36n_9QsEc-fW4t/view?usp=sharing" target="_blank" class="mod-card m">
+        <span class="mod-num">M2</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Maths Module 2</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1uaPVjSCcdyEqop1Rp2xN1eTIk-Woo1cU/view?usp=sharing" target="_blank" class="mod-card m">
+        <span class="mod-num">M3</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Maths Module 3</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1cZ__5W913ozLZiLvDCpCoHgGLS1nxUEr/view?usp=sharing" target="_blank" class="mod-card m">
+        <span class="mod-num">M4</span>
+        <span class="mod-label">ARJUNA 2026</span>
+        <span class="mod-title">Maths Module 4</span>
+      </a>
+    </div>
+
+    <div class="cat-label">// STANDARD BOOKS</div>
+    <div class="cards">
+      <a href="https://drive.google.com/file/d/1blL_xyw53FcQ6whmsmfq5U9Sip4vEcK3/view?usp=sharing" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>CENGAGE</div>
+          <div class="card-title">Cengage Algebra — G. Tewani</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1LhNDDGPAY7L67lf8XDTbEsOfgcBMkkLx/view?usp=sharing" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>CENGAGE</div>
+          <div class="card-title">Cengage Mathematics (Full)</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1-xz0uJGfJie3GBmjOGwfp-TzPsBFOfK2/view?usp=sharing" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>RD SHARMA</div>
+          <div class="card-title">RD Sharma Class 11 — 2025-26</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/17lQzscsTQYkjD5i3BD3TQNYuTaXOWjDF/view?usp=sharing" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PW</div>
+          <div class="card-title">PW Maths Module 2025 Complete</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1Gfoj-Wcb86Kay_9c8-Ou47hwuVf8iclS/view?usp=sharing" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>EAJEE</div>
+          <div class="card-title">Maths Eajee 11th — Complete</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// NOTES & REFERENCE</div>
+    <div class="cards">
+      <a href="https://drive.google.com/file/d/1CJJ2St5pPV7smn05dpLIMh3CogJ5MKAT/view?usp=drivesdk" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>NOTES</div>
+          <div class="card-title">Maths Notes (Complete)</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1iSSh6gwHsgL6VNmVZ5y-sd42UqZsbdxc/view?usp=drivesdk" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>QUICK REF</div>
+          <div class="card-title">Formula Sheet</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1BJO7P1ullg2DczBn_DZBQD7IF9KebpME" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>MIND MAPS</div>
+          <div class="card-title">Maths Mind Maps</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1lC-uhHg_bOjrlmBYwwIxxf0EL-eofcIF/view?usp=drivesdk" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PRACTICE</div>
+          <div class="card-title">Practice Questions</div>
+          <div class="card-btn">DOWNLOAD <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/144SXGGMlCczwC9kj-Q-y8us9-AmJos-r" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PYQ</div>
+          <div class="card-title">Maths Previous Year Papers</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1AdHm9Aye77w25BRXjaSKU0W1j3XR048N" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>NCERT</div>
+          <div class="card-title">NCERT Exemplar — Maths</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1dInjFcqZKkgeCW0QLdmEdfmWDCXYuMul" target="_blank" class="card m">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>ADDITIONAL</div>
+          <div class="card-title">Additional Question Practice Materials</div>
+          <div class="card-btn">OPEN <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cat-label">// SHORT NOTES</div>
+    <div class="cards">
+      <a href="https://drive.google.com/drive/folders/1zm17_0SM12SyaBOKLigIE4zsA00JgFDr" target="_blank" class="card m folder">
+        <div class="card-corner tl"></div><div class="card-corner br"></div>
+        <div class="card-inner">
+          <div class="card-badge"><div class="badge-dot"></div>PREMIUM</div>
+          <div class="card-title">Maths Short Notes — Premium Quality</div>
+          <div class="card-btn">ACCESS NOTES <div class="card-btn-arrow"></div></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-text">// JEE NEXUS — ALL MATERIALS FOR EDUCATIONAL PURPOSES — CRACK JEE 2026</div>
+</footer>
+
+<script>
+function switchTab(tab) {
+  // Update tabs
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.tab.' + (tab === 'all' ? 'all' : tab === 'physics' ? 'phys' : tab === 'chemistry' ? 'chem' : 'math')).classList.add('active');
+
+  // Update sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + tab).classList.add('active');
+
+  // Animate cards
+  document.querySelectorAll('#sec-' + tab + ' .card, #sec-' + tab + ' .mod-card').forEach((c, i) => {
+    c.style.animationDelay = (i * 0.04) + 's';
+    c.style.animation = 'none';
+    c.offsetHeight;
+    c.style.animation = '';
+  });
+}
+</script>
+
+</body>
+</html>
